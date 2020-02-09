@@ -15,9 +15,21 @@ import java.util.Optional;
 @WebServlet(name="Hello", urlPatterns = {"/api/*"})
 public class HelloServlet extends HttpServlet {
     private static final String NAME_PARAM = "name";
-
+    private static final String LANG_PARAM = "lang";
     private final Logger logger = LoggerFactory.getLogger(HelloServlet.class);
+    private HelloService service;
 
+    /**
+     * Servlet container needs it
+     */
+    @SuppressWarnings("unused")
+    public HelloServlet() {
+        this(new HelloService());
+    }
+
+    HelloServlet(HelloService service) {
+        this.service = service;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,9 +37,9 @@ public class HelloServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-        var name = Optional.ofNullable(req.getParameter(NAME_PARAM)).orElse("world");
-
-        resp.getWriter().write("Hello " + name.trim()+"!");
+        String name = req.getParameter(NAME_PARAM);
+        String lang = req.getParameter(LANG_PARAM);
+        resp.getWriter().write(service.prepareGreeting(name, lang));
 
 
 
