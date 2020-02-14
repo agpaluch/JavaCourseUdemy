@@ -1,17 +1,37 @@
 package io.github.mat3e;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "languages")
 class Lang {
-    private Long id;
+
+    @Id
+    @GeneratedValue(generator="inc")
+    @GenericGenerator(name="inc", strategy = "increment")
+    private Integer id;
     private String welcomeMsg;
     private String code;
 
-    public Lang(Long id, String welcomeMsg, String code) {
+    /**
+     * Constructor used by Hibernate.
+     */
+    @SuppressWarnings("unused")
+    Lang(){
+    }
+
+    public Lang(Integer id, String welcomeMsg, String code) {
         this.id = id;
         this.welcomeMsg = welcomeMsg;
         this.code = code;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
