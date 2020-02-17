@@ -1,4 +1,4 @@
-package io.github.mat3e;
+package io.github.mat3e.hello;
 
 import io.github.mat3e.lang.Lang;
 import io.github.mat3e.lang.LangRepository;
@@ -24,17 +24,9 @@ class HelloService {
     }
 
 
-    String prepareGreeting(String name, String lang) {
-        Integer langId;
-        try {
-            langId = Optional.ofNullable(lang)
-                    .map(Integer::valueOf)
-                    .orElse(FALLBACK_LANG.getId());
-        } catch (NumberFormatException e) {
-            logger.warn("Non-numeric language id used: "+lang);
-            langId = FALLBACK_LANG.getId();
-        }
+    String prepareGreeting(String name, Integer langId) {
 
+        langId = Optional.ofNullable(langId).orElse(FALLBACK_LANG.getId());
 
         var welcomeMsg = repository.findById(langId)
                 .orElse(FALLBACK_LANG).getWelcomeMsg();

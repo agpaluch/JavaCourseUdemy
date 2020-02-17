@@ -1,4 +1,4 @@
-package io.github.mat3e;
+package io.github.mat3e.hello;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,9 +37,17 @@ public class HelloServlet extends HttpServlet {
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
-        String name = req.getParameter(NAME_PARAM);
-        String lang = req.getParameter(LANG_PARAM);
-        resp.getWriter().write(service.prepareGreeting(name, lang));
+        var name = req.getParameter(NAME_PARAM);
+        var lang = req.getParameter(LANG_PARAM);
+        Integer langId = null;
+
+        try {
+            langId = Integer.valueOf(lang);
+        } catch (NumberFormatException e) {
+            logger.warn("Non-numeric language id used: "+ lang);
+        }
+
+        resp.getWriter().write(service.prepareGreeting(name, langId));
 
 
 

@@ -1,4 +1,4 @@
-package io.github.mat3e;
+package io.github.mat3e.hello;
 
 import io.github.mat3e.lang.Lang;
 import io.github.mat3e.lang.LangRepository;
@@ -20,7 +20,7 @@ public class HelloServiceTest {
         var SUT = new HelloService(mockRepository); //SUT - system under test
 
         //when
-        var result = SUT.prepareGreeting(null, "-1");
+        var result = SUT.prepareGreeting(null, -1);
 
         //then
         assertEquals(WELCOME + " " +HelloService.FALLBACK_NAME+"!", result);
@@ -34,7 +34,7 @@ public class HelloServiceTest {
         var name = "test";
 
         // when
-        var result = SUT.prepareGreeting(name, "-1");
+        var result = SUT.prepareGreeting(name, -1);
 
         //then
         assertEquals(WELCOME + " " +name+"!", result);
@@ -56,7 +56,7 @@ public class HelloServiceTest {
     }
 
 
-    @Test
+/*    @Test
     public void testPrepareGreetingTextLangReturnsGreetingWithFallbackIdLang() throws Exception {
 
         //given
@@ -69,7 +69,7 @@ public class HelloServiceTest {
         //then
         assertEquals(FALLBACK_ID_WELCOME + " " +HelloService.FALLBACK_NAME+"!", result);
 
-    }
+    }*/
 
 
 
@@ -86,7 +86,7 @@ public class HelloServiceTest {
         var SUT = new HelloService(mockRepository); //SUT - system under test
 
         //when
-        var result = SUT.prepareGreeting(null, "-1");
+        var result = SUT.prepareGreeting(null, -1);
 
         //then
         assertEquals(HelloService.FALLBACK_LANG.getWelcomeMsg()+" "+HelloService.FALLBACK_NAME+"!", result);
